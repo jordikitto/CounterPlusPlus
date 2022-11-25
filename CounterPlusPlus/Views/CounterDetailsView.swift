@@ -16,7 +16,8 @@ struct CounterDetailsView: View {
         VStack(spacing: 50) {
             Label("\(viewModel.counter.value)", systemImage: "number.circle")
             Label(viewModel.timeSinceLastChange.formatted(), systemImage: "clock.arrow.circlepath")
-            Button("Go Back", action: { dismiss() })
+            Button("Go Back & Reset") { viewModel.resetCounter(); dismiss() }
+            Button("Go Back") { dismiss() }
         }
     }
 }
@@ -37,6 +38,10 @@ extension CounterDetailsView {
                     self?.timeSinceLastChange = Date().timeIntervalSince(newChangeDate)
                 }
                 .store(in: &bag)
+        }
+        
+        func resetCounter() {
+            counter.resetCounter()
         }
     }
 }
